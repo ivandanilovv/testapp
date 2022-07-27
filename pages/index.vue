@@ -1,6 +1,6 @@
 <template>
   <main>
-    <button @click="getApi" :disabled="loading">
+    <button @click="getApi('https://archive.org/metadata/TheAdventuresOfTomSawyer_201303')" :disabled="loading">
       Click me!
     </button>
   </main>
@@ -16,11 +16,11 @@ export default {
     }
   },
   methods: {
-    async getApi(){
+    async getApi(url){
       this.error = ''
       try{
         this.loading = true;
-        const data = await this.$axios.$get('/metadata/TheAdventuresOfTomSawyer_201303');
+        const data = await this.$axios.$get(url);
         console.log(data)
       } catch (e){
         this.error = 'ERROR! Please try again!'
@@ -28,6 +28,9 @@ export default {
         this.loading = false;
       }
     }
+  },
+  mounted() {
+    this.getApi('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita')
   }
 }
 </script>
